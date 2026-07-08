@@ -1,0 +1,10 @@
+node_modules/
+dist/
+dist-electron/
+.env
+.env.github
+*.log
+.turbo/
+.expo/
+local.db
+local.db-*

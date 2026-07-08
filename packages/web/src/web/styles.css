@@ -1,0 +1,221 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --pink: #ff3d7f;
+  --pink-dark: #e02d6b;
+  --pink-soft: #ffe3ee;
+  --pink-tint: #fff5f8;
+  --choco: #3a2318;
+  --choco-soft: #5a4032;
+  --cream: #fffbf7;
+  --gold: #f5a623;
+  --ink: #2b2024;
+  --muted: #8a7e84;
+  --radius: 0.625rem;
+  --surface: #ffffff;
+  --surface-2: #fff5f8;
+  --border-soft: #ffe3ee;
+}
+
+/* ---------------- Dark mode ---------------- */
+.dark {
+  --pink: #ff5c93;
+  --pink-dark: #ff3d7f;
+  --pink-soft: #3a1f2b;
+  --pink-tint: #2a1820;
+  --choco: #f5ece6;
+  --choco-soft: #d9c8bd;
+  --cream: #1a1115;
+  --gold: #f7b94a;
+  --ink: #f2e9ee;
+  --muted: #b6a6ad;
+  --surface: #241820;
+  --surface-2: #2e1f28;
+  --border-soft: #3d2a35;
+}
+
+@theme inline {
+  --color-pink: var(--pink);
+  --color-pink-dark: var(--pink-dark);
+  --color-pink-soft: var(--pink-soft);
+  --color-pink-tint: var(--pink-tint);
+  --color-choco: var(--choco);
+  --color-choco-soft: var(--choco-soft);
+  --color-cream: var(--cream);
+  --color-gold: var(--gold);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border-soft: var(--border-soft);
+  --font-display: "Poppins", "Cairo", sans-serif;
+  --font-ar: "Cairo", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: "Cairo", "Poppins", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+/* Smooth theme transition for common surfaces */
+html.dark img {
+  /* keep product photos vibrant in dark */
+  filter: none;
+}
+
+/* In dark mode, map hard-coded white surfaces to dark surface */
+.dark .bg-white {
+  background-color: var(--surface) !important;
+}
+.dark .bg-white\/85,
+.dark .bg-white\/80,
+.dark .bg-white\/70 {
+  background-color: color-mix(in srgb, var(--surface) 88%, transparent) !important;
+}
+
+[dir="ltr"] body {
+  font-family: "Poppins", "Cairo", sans-serif;
+}
+
+/* Headings: Poppins for EN, Cairo for AR */
+.font-head {
+  font-family: "Poppins", "Cairo", sans-serif;
+  font-weight: 800;
+}
+[dir="rtl"] .font-head {
+  font-family: "Cairo", "Poppins", sans-serif;
+  font-weight: 800;
+}
+
+/* Pink blob shape */
+.blob {
+  border-radius: 42% 58% 56% 44% / 50% 44% 56% 50%;
+}
+
+/* hide scrollbar for filter row on mobile */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(2deg); }
+}
+.animate-float { animation: float 6s ease-in-out infinite; }
+
+@keyframes blob-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(8deg) scale(1.04); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+.animate-blob { animation: blob-spin 12s ease-in-out infinite; }
+
+
+
+/* admin form input utility */
+.dt-input {
+  width: 100%;
+  border-radius: 1rem;
+  border: 2px solid var(--color-pink-soft, #ffd0e0);
+  background: var(--color-pink-tint, #fff5f8);
+  padding: 0.75rem 1rem;
+  font-size: 15px;
+  color: var(--color-choco, #3a2318);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.dt-input:focus { border-color: var(--color-pink, #ff3d7f); }
+.dt-input::placeholder { color: #c99db0; }
+
+/* ===== Luxury search bar effects ===== */
+@keyframes dt-shimmer {
+  0%   { transform: translateX(-130%) skewX(-18deg); }
+  100% { transform: translateX(330%)  skewX(-18deg); }
+}
+@keyframes dt-border-rotate {
+  to { --dt-angle: 360deg; }
+}
+@property --dt-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes dt-icon-pulse {
+  0%, 100% { filter: drop-shadow(0 0 0px color-mix(in srgb, var(--pink) 0%, transparent)); }
+  50%      { filter: drop-shadow(0 0 9px color-mix(in srgb, var(--pink) 75%, transparent)); }
+}
+
+/* animated conic gradient ring */
+.dt-search-ring {
+  background: conic-gradient(
+    from var(--dt-angle),
+    transparent 0deg,
+    color-mix(in srgb, var(--pink) 85%, transparent) 70deg,
+    #ffd9a8 130deg,
+    transparent 200deg,
+    color-mix(in srgb, var(--pink) 85%, transparent) 290deg,
+    transparent 360deg
+  );
+  animation: dt-border-rotate 6s linear infinite;
+}
+.dt-search-shimmer {
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    color-mix(in srgb, #ffffff 65%, transparent) 45%,
+    color-mix(in srgb, #fff1d6 80%, transparent) 50%,
+    transparent 100%
+  );
+  animation: dt-shimmer 3.6s ease-in-out infinite;
+}
+.dt-search-icon { animation: dt-icon-pulse 2.8s ease-in-out infinite; }
+
+/* ===== Global Search Modal ===== */
+@keyframes dt-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(-18px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dt-search-modal {
+  animation: dt-modal-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+  position: relative;
+}
+
+/* glowing border on modal */
+.dt-search-modal::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 2rem;
+  background: conic-gradient(
+    from var(--dt-angle),
+    transparent 0deg,
+    color-mix(in srgb, var(--pink) 60%, transparent) 60deg,
+    transparent 140deg
+  );
+  animation: dt-border-rotate 5s linear infinite;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+/* Search trigger shimmer */
+.dt-search-trigger {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
